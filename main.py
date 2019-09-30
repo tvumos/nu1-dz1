@@ -2,7 +2,7 @@ import requests
 import json
 from flask import Flask
 
-
+# Метод получения данных с сайта www.cbr-xml-daily.ru в формате JSON
 def get_valutes_list():
     url = 'https://www.cbr-xml-daily.ru/daily_json.js'
     response = requests.get(url)
@@ -13,20 +13,20 @@ def get_valutes_list():
 
 app = Flask(__name__)
 
-
+# Функция отрисовки страницы с таблицей курсы валют
 def create_html(valutes):
     text = '<h1>Курс валют</h1>'
-    text += '<table >'
-    text += '<tr>'
-    for _ in valutes[0]:
-        text += f'<th><th>'
+    text += '<h3>по состоянию на: <body><script type="text/javascript">document.write(Date());</script></body></h3>'
+    text += '<table style=" border-collapse: collapse; text-align: left;">'
+    text += '<tr style=" text-align: center; padding: 1px 5px; border: 1px solid #000000; ">'
+    for val in valutes[0]:
+        text += f'<td style="padding: 1px 5px; border: 1px solid #000000; background-color: #D0D0D0; font-weight: bold;">' + val + '</td>'
     text += '</tr>'
     for valute in valutes:
-        text += '<tr>'
+        text += '<tr style=" padding: 1px 5px; border: 1px solid #000000; ">'
         for v in valute.values():
-            text += f'<td>{v}</td>'
+            text += f'<td style=" padding: 1px 5px; border: 1px solid #000000; ">{v}</td>'
         text += '</tr>'
-
     text += '</table>'
     return text
 
