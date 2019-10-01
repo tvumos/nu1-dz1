@@ -2,19 +2,26 @@ import requests
 import json
 from flask import Flask
 
-# Метод получения данных с сайта www.cbr-xml-daily.ru в формате JSON
+
 def get_valutes_list():
+    """
+    Метод получения данных с сайта www.cbr-xml-daily.ru в формате JSON
+    :return: Ответ с сайта www.cbr-xml-daily.ru в формате JSON
+    """
     url = 'https://www.cbr-xml-daily.ru/daily_json.js'
     response = requests.get(url)
     data = json.loads(response.text)
     valutes = list(data['Valute'].values())
     return valutes
 
-
 app = Flask(__name__)
 
-# Функция отрисовки страницы с таблицей курсы валют
 def create_html(valutes):
+    """
+    Функция отрисовки страницы с таблицей курсы валют
+    :param valutes: Таблица в формате JSON
+    :return: HTML страница
+    """
     text = '<h1>Курс валют</h1>'
     text += '<h3>по состоянию на: <body><script type="text/javascript">document.write(Date());</script></body></h3>'
     text += '<table style=" border-collapse: collapse; text-align: left;">'
