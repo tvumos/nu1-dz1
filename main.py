@@ -14,7 +14,9 @@ def get_valutes_list():
     valutes = list(data['Valute'].values())
     return valutes
 
+
 app = Flask(__name__)
+
 
 def create_html(valutes):
     """
